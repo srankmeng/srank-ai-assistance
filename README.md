@@ -2,11 +2,11 @@
 
 The chat bot assistance for srank
 
-## Chat API
+## Local LLM Chat API
 
 The API implement with python flask and ollama.
 
-Setup steps can be found at [README](src/loclal-llm/README.md)
+Setup steps can be found at [README](src/local-llm/README.md)
 
 Run curl
 
@@ -17,3 +17,9 @@ curl --location 'http://localhost:5000/chatbot' \
     "message": "ประเทศไทยมีกี่จังหวัด"
 }'
 ```
+
+## Line bot
+
+Implement with firebase google cloud function
+
+Setup steps can be found at [README](src/firebase-cloud-function/README.md)
