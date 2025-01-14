@@ -18,7 +18,7 @@ ollema pull llama3.2
 Activate venv
 
 ```sh
-cd src
+cd src/local-llm
 python3 -m venv .venv
 source .venv/bin/activate
 ```

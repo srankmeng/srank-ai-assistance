@@ -6,7 +6,7 @@ The chat bot assistance for srank
 
 The API implement with python flask and ollama.
 
-Setup steps can be found at [REDME](src/chatbot/README.md)
+Setup steps can be found at [README](src/loclal-llm/README.md)
 
 Run curl
 
