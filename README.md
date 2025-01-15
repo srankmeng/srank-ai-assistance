@@ -18,7 +18,7 @@ curl --location 'http://localhost:5000/chatbot' \
 }'
 ```
 
-## Line bot
+## Line chat bot
 
 Implement with firebase google cloud function
 

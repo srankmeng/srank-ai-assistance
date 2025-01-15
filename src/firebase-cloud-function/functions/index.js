@@ -51,7 +51,7 @@ const getImageBinary = async (messageId) => {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${LINE_ACCESS_TOKEN.value()}`,
     },
-    url: `${LINE_MESSAGING_API}/message/${messageId}/content`,
+    url: `${LINE_MESSAGING_API.value()}/message/${messageId}/content`,
     responseType: "arraybuffer",
   });
   return originalImage.data;
