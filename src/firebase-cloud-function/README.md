@@ -53,3 +53,7 @@ Should be run on <http://127.0.0.1:5001/srank-assistance-d1bde/us-central1/lineW
 ```sh
 firebase deploy --only functions
 ```
+
+## LINE Messaging API
+
+Specifications can be found at [LINE Messaging API](https://developers.line.biz/en/reference/messaging-api/)

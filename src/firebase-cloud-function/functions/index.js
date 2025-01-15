@@ -16,12 +16,18 @@ exports.lineWebHook = onRequest(async (req, res) => {
           if (event.message.type === "text") {
             const msg = await gemini.textOnly(event.message.text);
             await reply(event.replyToken, [{type: "text", text: msg}]);
+            break;
           }
           if (event.message.type === "image") {
             const imageBinary = await getImageBinary(event.message.id);
             const msg = await gemini.multimodal(imageBinary);
             await reply(event.replyToken, [{type: "text", text: msg}]);
+            break;
           }
+          await reply(
+              event.replyToken,
+              [{type: "text", text: "ยังไม่สนับสนุนข้อความชนิดนี้ ขออภัย"}],
+          );
           break;
       }
     }
