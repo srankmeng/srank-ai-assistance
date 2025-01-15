@@ -4,6 +4,7 @@ const {defineString} = require("firebase-functions/params");
 const gemini = require("./utils/gemini");
 
 const LINE_MESSAGING_API = defineString("LINE_MESSAGING_API");
+const LINE_DATA_MESSAGING_API = defineString("LINE_DATA_MESSAGING_API");
 const LINE_ACCESS_TOKEN = defineString("LINE_ACCESS_TOKEN");
 
 exports.lineWebHook = onRequest(async (req, res) => {
@@ -51,7 +52,7 @@ const getImageBinary = async (messageId) => {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${LINE_ACCESS_TOKEN.value()}`,
     },
-    url: `${LINE_MESSAGING_API.value()}/message/${messageId}/content`,
+    url: `${LINE_DATA_MESSAGING_API.value()}/message/${messageId}/content`,
     responseType: "arraybuffer",
   });
   return originalImage.data;
