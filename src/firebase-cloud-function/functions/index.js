@@ -11,23 +11,37 @@ exports.lineWebHook = onRequest(async (req, res) => {
   if (req.method === "POST") {
     const events = req.body.events;
     for (const event of events) {
+      const inputRawText = event.message.text;
+      const inputText = inputRawText.split(":")[1];
+
       switch (event.type) {
         case "message":
-          if (event.message.type === "text") {
-            const msg = await gemini.textOnly(event.message.text);
-            await reply(event.replyToken, [{type: "text", text: msg}]);
-            break;
+          if (inputRawText.includes("bot")) {
+            // simple text
+            if (event.message.type === "text" && !event.message.quotedMessageId) {
+              const msg = await gemini.textOnly(inputText);
+              await reply(event.replyToken, [{type: "text", text: msg}]);
+              break;
+            }
+
+            // quoted the image
+            if (event.message.type === "text" && event.message.quotedMessageId) {
+              const imageBinary = await getImageBinary(event.message.quotedMessageId);
+              const msg = await gemini.multimodal(imageBinary);
+              await reply(event.replyToken, [{type: "text", text: msg}]);
+              break;
+            }
           }
-          if (event.message.type === "image") {
-            const imageBinary = await getImageBinary(event.message.id);
-            const msg = await gemini.multimodal(imageBinary);
-            await reply(event.replyToken, [{type: "text", text: msg}]);
-            break;
+          if (inputRawText.includes("up")) {
+            // quoted the image
+            if (event.message.type === "text" && event.message.quotedMessageId) {
+              // const imageBinary = await getImageBinary(event.message.quotedMessageId);
+              // const msg = await gemini.multimodal(imageBinary);
+              await reply(event.replyToken, [{type: "text", text: "uuuouo"}]);
+              break;
+            }
           }
-          await reply(
-              event.replyToken,
-              [{type: "text", text: "ยังไม่สนับสนุนข้อความชนิดนี้ ขออภัย"}],
-          );
+          await reply(event.replyToken, [{type: "text", text: "ข้อความไม่ตรงเงื่อนไข ขออภัยมณี สุดสาคร สินสมุทร"}]);
           break;
       }
     }
