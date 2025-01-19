@@ -10,8 +10,7 @@ const textOnly = async (prompt) => {
   return result.response.text();
 };
 
-const multimodal = async (imageBinary) => {
-  const prompt = "ช่วยบรรยายภาพนี้ให้หน่อย";
+const multimodal = async (prompt, imageBinary) => {
   const mimeType = "image/png";
 
   // Convert image binary to a GoogleGenerativeAI.Part object.

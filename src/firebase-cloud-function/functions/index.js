@@ -26,18 +26,25 @@ exports.lineWebHook = onRequest(async (req, res) => {
 
             // quoted the image
             if (event.message.type === "text" && event.message.quotedMessageId) {
+              const prompt = "ช่วยบรรยายภาพนี้ให้หน่อย";
               const imageBinary = await getImageBinary(event.message.quotedMessageId);
-              const msg = await gemini.multimodal(imageBinary);
+              const msg = await gemini.multimodal(prompt, imageBinary);
               await reply(event.replyToken, [{type: "text", text: msg}]);
               break;
             }
           }
           if (inputRawText.includes("up")) {
-            // quoted the image
             if (event.message.type === "text" && event.message.quotedMessageId) {
-              // const imageBinary = await getImageBinary(event.message.quotedMessageId);
-              // const msg = await gemini.multimodal(imageBinary);
-              await reply(event.replyToken, [{type: "text", text: "uuuouo"}]);
+              const prompt = `ภาพนี้คือรูปใบเสร็จ คนโอนเงินคือ จาตุรงค์ โอนให้ร้านต่าง ๆ ช่วย convert รูปใบเสร็จและส่งมาในรูปแบบ JSON 1 item
+                ประกอบด้วย field ต่อไปนี้:
+                - datetime  (format dd/mm/yyyy HH:ss),
+                - recipient (ผู้รับ),
+                - amount (ตัวเลขอย่างเดียว ไม่เอา currency และ thoundsand comma),
+                - description (ค่าอะไร เช่นค่าข้าว ค่ารถ ถ้าไม่มีให้ส่งมาเป็น empty string)
+                EXAMPLE: {"datetime": "01/01/2023 05:28", "recipient": "คุณเอก บริษัทของเรา", "amount": "1000", "description": "ค่าข้าว"}`;
+              const imageBinary = await getImageBinary(event.message.quotedMessageId);
+              const msg = await gemini.multimodal(prompt, imageBinary);
+              await reply(event.replyToken, [{type: "text", text: msg}]);
               break;
             }
           }
