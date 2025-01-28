@@ -10,7 +10,7 @@ const LINE_DATA_MESSAGING_API = defineString("LINE_DATA_MESSAGING_API");
 const LINE_ACCESS_TOKEN = defineString("LINE_ACCESS_TOKEN");
 const GOOGLE_SHEET_ID = defineString("GOOGLE_SHEET_ID");
 const GOOGLE_SHEET_PAGE_NAME = defineString("GOOGLE_SHEET_PAGE_NAME");
-const RANGE_COLUMN = "A:D";
+const RANGE_COLUMN = "A:E";
 
 exports.lineWebHook = onRequest(async (req, res) => {
   if (req.method === "POST") {

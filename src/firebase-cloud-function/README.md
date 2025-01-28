@@ -4,6 +4,9 @@
 
 - nodejs
 - [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli)
+- LINE developer account
+- Google Cloud Platform account
+- Gemini API key
 
 ## Installation for initial project in Firebase
 
@@ -56,4 +59,12 @@ firebase deploy --only functions
 
 ## LINE Messaging API
 
+Setup LINE Messaging API webhook in Line Developer Console with `firebase cloud function url`
+
 Specifications can be found at [LINE Messaging API](https://developers.line.biz/en/reference/messaging-api/)
+
+## Setup Google sheet
+
+Create sheet & setup step: <https://medium.com/@shkim04/beginner-guide-on-google-sheet-api-for-node-js-4c0b533b071a>
+
+Google sheet API document: <https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values>

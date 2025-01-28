@@ -1,6 +1,38 @@
 # srank-assistance
 
-The chat bot assistance for srank
+The AI assistance for srank
+
+- Any question can be chat with this bot
+- Upload the receipts for ***auto*** monthly expenses record to google sheet
+
+## Line chat bot
+
+Implement with firebase google cloud function
+
+Setup steps can be found at [README](src/firebase-cloud-function/README.md)
+
+### Usecases
+
+#### Simple chat with text
+
+Type plain text that include "***bot***" sent to chat, e.g. "bot ประเทศไทยมีกี่จังหวัด"
+
+> ![line chat 01](assets/images/line_chat01.png)
+
+#### Describe photo in chat
+
+Uplaod the image in chat, then qouted the image and type "***bot***" sent to chat
+
+> ![line chat 02](assets/images/line_chat02.png)
+
+#### Upload receipt
+
+Uplaod the receipt in chat, then qouted the image and type "***up***" sent to chat
+
+> ![line upload receipt 01](assets/images/line_upload_receipt01.png)
+
+Then, Append the data to google sheet automatically.
+> ![line upload receipt 02](assets/images/line_upload_receipt02.png)
 
 ## Local LLM Chat API
 
@@ -17,13 +49,3 @@ curl --location 'http://localhost:5000/chatbot' \
     "message": "ประเทศไทยมีกี่จังหวัด"
 }'
 ```
-
-## Line chat bot
-
-Implement with firebase google cloud function
-
-Setup steps can be found at [README](src/firebase-cloud-function/README.md)
-
-
-Google sheet API document: https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values
-Reference: https://medium.com/@shkim04/beginner-guide-on-google-sheet-api-for-node-js-4c0b533b071a
