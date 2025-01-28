@@ -1,11 +1,16 @@
+/* eslint-disable no-case-declarations */
 const axios = require("axios");
 const {onRequest} = require("firebase-functions/v2/https");
 const {defineString} = require("firebase-functions/params");
 const gemini = require("./utils/gemini");
+const googleSheet = require("./utils/googleSheet");
 
 const LINE_MESSAGING_API = defineString("LINE_MESSAGING_API");
 const LINE_DATA_MESSAGING_API = defineString("LINE_DATA_MESSAGING_API");
 const LINE_ACCESS_TOKEN = defineString("LINE_ACCESS_TOKEN");
+const GOOGLE_SHEET_ID = defineString("GOOGLE_SHEET_ID");
+const GOOGLE_SHEET_PAGE_NAME = defineString("GOOGLE_SHEET_PAGE_NAME");
+const RANGE_COLUMN = "A:D";
 
 exports.lineWebHook = onRequest(async (req, res) => {
   if (req.method === "POST") {
@@ -43,12 +48,18 @@ exports.lineWebHook = onRequest(async (req, res) => {
                 - description (ค่าอะไร เช่นค่าข้าว ค่ารถ ถ้าไม่มีให้ส่งมาเป็น empty string)
                 EXAMPLE: {"datetime": "01/01/2023 05:28", "recipient": "คุณเอก บริษัทของเรา", "amount": "1000", "description": "ค่าข้าว"}`;
               const imageBinary = await getImageBinary(event.message.quotedMessageId);
-              const msg = await gemini.multimodal(prompt, imageBinary);
-              await reply(event.replyToken, [{type: "text", text: msg}]);
+              const jsonText = await gemini.multimodalJson(prompt, imageBinary);
+              const {datetime, recipient, amount, description} = JSON.parse(jsonText)[0];
+              const appendSheetData = [
+                [datetime, recipient, amount, description],
+              ];
+
+              await googleSheet.appendSheet(GOOGLE_SHEET_ID.value(), `${GOOGLE_SHEET_PAGE_NAME.value()}!${RANGE_COLUMN}`, appendSheetData);
+              await reply(event.replyToken, [{type: "text", text: jsonText}]);
               break;
             }
           }
-          await reply(event.replyToken, [{type: "text", text: "ข้อความไม่ตรงเงื่อนไข ขออภัยมณี สุดสาคร สินสมุทร"}]);
+          await reply(event.replyToken, [{type: "text", text: "ข้อความไม่ตรงเงื่อนไข ขออภัยจ้า ลองใหม่อีกทีนะ"}]);
           break;
       }
     }

@@ -23,3 +23,7 @@ curl --location 'http://localhost:5000/chatbot' \
 Implement with firebase google cloud function
 
 Setup steps can be found at [README](src/firebase-cloud-function/README.md)
+
+
+Google sheet API document: https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values
+Reference: https://medium.com/@shkim04/beginner-guide-on-google-sheet-api-for-node-js-4c0b533b071a
