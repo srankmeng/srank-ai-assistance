@@ -46,6 +46,9 @@ Uplaod the receipt in chat, then qouted the image and type "***up***" sent to ch
 Then, Append the data to google sheet automatically.
 > ![line upload receipt 02](assets/images/line_upload_receipt02.png)
 
+So, display daily expenses in chart on sheet.
+> ![line upload receipt 03](assets/images/line_upload_receipt03.png)
+
 ## Local LLM Chat API
 
 The API implement with python flask and ollama.
