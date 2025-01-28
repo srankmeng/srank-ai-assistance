@@ -11,6 +11,18 @@ Implement with firebase google cloud function
 
 Setup steps can be found at [README](src/firebase-cloud-function/README.md)
 
+### Flow diagram
+
+```mermaid
+graph TD;
+    A[User Input in LINE Chat] -->|Send Message| B[LINE Webhook];
+    B -->|Call Firebase Cloud Function| C[Firebase Cloud Function];
+    C -->|Call Gemini API| D[Gemini API];
+    D -->|Receive Response| C;
+    C -->|Reply Message to User| B;
+    C -->|Record Data to Google Sheet| E[Google Sheet];
+```
+
 ### Usecases
 
 #### Simple chat with text
