@@ -42,16 +42,17 @@ exports.lineWebHook = onRequest(async (req, res) => {
             if (event.message.type === "text" && event.message.quotedMessageId) {
               const prompt = `ภาพนี้คือรูปใบเสร็จ คนโอนเงินคือ จาตุรงค์ โอนให้ร้านต่าง ๆ ช่วย convert รูปใบเสร็จและส่งมาในรูปแบบ JSON 1 item
                 ประกอบด้วย field ต่อไปนี้:
-                - datetime  (format dd/mm/yyyy HH:ss),
+                - datetime (date format dd/mm/yyyy HH:ss),
                 - recipient (ผู้รับ),
                 - amount (ตัวเลขอย่างเดียว ไม่เอา currency และ thoundsand comma),
                 - description (ค่าอะไร เช่นค่าข้าว ค่ารถ ถ้าไม่มีให้ส่งมาเป็น empty string)
-                EXAMPLE: {"datetime": "01/01/2023 05:28", "recipient": "คุณเอก บริษัทของเรา", "amount": "1000", "description": "ค่าข้าว"}`;
+                - day (date format d)
+                EXAMPLE: {"datetime": "01/01/2023 05:28", "recipient": "คุณเอก บริษัทของเรา", "amount": "1000", "description": "ค่าข้าว", day: "1"}`;
               const imageBinary = await getImageBinary(event.message.quotedMessageId);
               const jsonText = await gemini.multimodalJson(prompt, imageBinary);
-              const {datetime, recipient, amount, description} = JSON.parse(jsonText)[0];
+              const {datetime, recipient, amount, description, day} = JSON.parse(jsonText)[0];
               const appendSheetData = [
-                [datetime, recipient, amount, description],
+                [datetime, recipient, amount, description, day],
               ];
 
               await googleSheet.appendSheet(GOOGLE_SHEET_ID.value(), `${GOOGLE_SHEET_PAGE_NAME.value()}!${RANGE_COLUMN}`, appendSheetData);

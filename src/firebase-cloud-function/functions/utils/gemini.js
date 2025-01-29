@@ -57,8 +57,13 @@ const multimodalJson = async (prompt, imageBinary) => {
           description: "description, note of receipt",
           nullable: true,
         },
+        day: {
+          type: SchemaType.STRING,
+          description: "Datetime format D of the receipt",
+          nullable: false,
+        },
       },
-      required: ["datetime", "recipient", "amount"],
+      required: ["datetime", "recipient", "amount", "day"],
     },
   };
 
