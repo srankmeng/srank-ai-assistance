@@ -45,14 +45,14 @@ exports.lineWebHook = onRequest(async (req, res) => {
                 - datetime (date format dd/mm/yyyy HH:ss),
                 - recipient (ผู้รับ),
                 - amount (ตัวเลขอย่างเดียว ไม่เอา currency และ thoundsand comma),
-                - description (ค่าอะไร เช่นค่าข้าว ค่ารถ ถ้าไม่มีให้ส่งมาเป็น empty string)
+                - note (บันทีกช่วยจำ ว่าใช้จ่ายอะไร เช่น ค่าอาหาร, ค่ารถ, บิลบัตรเครดิต เป็นต้น โดยถ้าไม่ระบุให้ส่งมาเป็น empty string)
                 - day (date format d)
-                EXAMPLE: {"datetime": "01/01/2023 05:28", "recipient": "คุณเอก บริษัทของเรา", "amount": "1000", "description": "ค่าข้าว", day: "1"}`;
+                EXAMPLE: {"datetime": "01/01/2023 05:28", "recipient": "คุณเอก บริษัทของเรา", "amount": "1000", "note": "ค่าข้าว", day: "1"}`;
               const imageBinary = await getImageBinary(event.message.quotedMessageId);
               const jsonText = await gemini.multimodalJson(prompt, imageBinary);
-              const {datetime, recipient, amount, description, day} = JSON.parse(jsonText)[0];
+              const {datetime, recipient, amount, note, day} = JSON.parse(jsonText)[0];
               const appendSheetData = [
-                [datetime, recipient, amount, description, day],
+                [datetime, recipient, amount, note, day],
               ];
 
               await googleSheet.appendSheet(GOOGLE_SHEET_ID.value(), `${GOOGLE_SHEET_PAGE_NAME.value()}!${RANGE_COLUMN}`, appendSheetData);

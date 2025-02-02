@@ -52,9 +52,9 @@ const multimodalJson = async (prompt, imageBinary) => {
           description: "Amount without currency of the receipt",
           nullable: false,
         },
-        description: {
+        note: {
           type: SchemaType.STRING,
-          description: "description, note of receipt",
+          description: "Note of receipt",
           nullable: true,
         },
         day: {
