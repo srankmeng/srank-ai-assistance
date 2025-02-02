@@ -1,4 +1,4 @@
-# srank-assistance
+# srank-ai-assistance
 
 The AI assistance for srank
 
