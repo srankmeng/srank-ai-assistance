@@ -3,7 +3,7 @@ const {GoogleGenerativeAI, SchemaType} = require("@google/generative-ai");
 
 const GEMINI_API_KEY = defineString("GEMINI_API_KEY");
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY.value());
-const modelName = "gemini-2.0-flash-exp";
+const modelName = "gemini-2.0-flash-001";
 
 const textOnly = async (prompt) => {
   const model = genAI.getGenerativeModel({model: modelName});
